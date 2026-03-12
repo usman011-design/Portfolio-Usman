@@ -811,6 +811,7 @@ footer{
   </button>
   </div>
 </nav>
+<div id="nav-overlay" onclick="cNav()" style="display:none;position:fixed;inset:0;z-index:998;"></div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="home">
@@ -1182,14 +1183,18 @@ addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s
 function tNav(){
   const nl=document.getElementById('nl');
   const ham=document.getElementById('ham');
-  nl.classList.toggle('open');
+  const ov=document.getElementById('nav-overlay');
+  const isOpen=nl.classList.toggle('open');
   ham.classList.toggle('open');
-  document.body.style.overflow=nl.classList.contains('open')?'hidden':'';
+  document.body.style.overflow=isOpen?'hidden':'';
+  if(ov) ov.style.display=isOpen?'block':'none';
 }
 function cNav(){
   document.getElementById('nl').classList.remove('open');
   document.getElementById('ham').classList.remove('open');
   document.body.style.overflow='';
+  const ov=document.getElementById('nav-overlay');
+  if(ov) ov.style.display='none';
 }
 
 /* TYPED */
@@ -1204,17 +1209,6 @@ function type(){
   setTimeout(type,del?48:85);
 }
 type();
-
-/* CLOSE MENU ON OUTSIDE CLICK */
-document.addEventListener('click', e=>{
-  const nl=document.getElementById('nl');
-  const ham=document.getElementById('ham');
-  if(nl && nl.classList.contains('open') && !nl.contains(e.target) && !ham.contains(e.target)){
-    nl.classList.remove('open');
-    ham.classList.remove('open');
-    document.body.style.overflow='';
-  }
-});
 
 /* SCROLL REVEAL */
 document.body.classList.add('js-loaded');
