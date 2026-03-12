@@ -94,7 +94,7 @@ body.cH #curR{width:48px;height:48px;border-color:rgba(78,207,164,.3);}
   width:40px;height:40px;border-radius:10px;
   background:var(--surface);border:1px solid var(--border);
   flex-direction:column;align-items:center;justify-content:center;gap:5px;
-  padding:9px;transition:all .3s;position:relative;z-index:210;
+  padding:9px;transition:all .3s;position:relative;z-index:1001;
 }
 .ham:hover{border-color:var(--border2);background:var(--surface2);}
 .ham span{
@@ -198,7 +198,7 @@ h1 .hl{color:var(--accent);}
 /* Photo frame */
 .hero-img{display:flex;justify-content:center;align-items:center;}
 .img-frame{
-  position:relative;width:260px;height:320px;
+  position:relative;width:300px;height:370px;
 }
 .img-border{
   position:absolute;inset:0;border-radius:16px;
@@ -752,7 +752,8 @@ footer{
     display:flex;flex-direction:column;
     position:fixed;inset:0;
     background:rgba(13,15,20,.96);backdrop-filter:blur(24px);
-    z-index:190;align-items:center;justify-content:center;gap:10px;
+    z-index:999;align-items:center;justify-content:center;gap:10px;
+    pointer-events:all;overflow:auto;
   }
   .navlinks.open li{opacity:0;transform:translateY(12px);animation:menuIn .35s ease forwards;}
   .navlinks.open li:nth-child(1){animation-delay:.05s;}
@@ -769,9 +770,15 @@ footer{
     display:block;text-align:center;
   }
   .navlinks.open a:hover{color:var(--accent);background:var(--accent-dim);}
+  .navlinks.open::after{
+    content:'tap anywhere to close';
+    position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+    font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--text3);
+  }
   .ham{display:flex;}
   .frow{grid-template-columns:1fr;}
-  .img-frame{width:220px;height:270px;}
+  .img-frame{width:250px;height:305px;}
   .badge{display:none;}
   .hero-stats{gap:20px;}
 }
@@ -1172,8 +1179,18 @@ document.querySelectorAll('a,button,.pcard,.srv-card,.tcard').forEach(el=>{
 
 /* NAV */
 addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>40));
-function tNav(){document.getElementById('nl').classList.toggle('open');document.getElementById('ham').classList.toggle('open');}
-function cNav(){document.getElementById('nl').classList.remove('open');document.getElementById('ham').classList.remove('open');}
+function tNav(){
+  const nl=document.getElementById('nl');
+  const ham=document.getElementById('ham');
+  nl.classList.toggle('open');
+  ham.classList.toggle('open');
+  document.body.style.overflow=nl.classList.contains('open')?'hidden':'';
+}
+function cNav(){
+  document.getElementById('nl').classList.remove('open');
+  document.getElementById('ham').classList.remove('open');
+  document.body.style.overflow='';
+}
 
 /* TYPED */
 const words=['beautiful UIs','robust APIs','full-stack apps','clean solutions','scalable systems'];
@@ -1187,6 +1204,17 @@ function type(){
   setTimeout(type,del?48:85);
 }
 type();
+
+/* CLOSE MENU ON OUTSIDE CLICK */
+document.addEventListener('click', e=>{
+  const nl=document.getElementById('nl');
+  const ham=document.getElementById('ham');
+  if(nl && nl.classList.contains('open') && !nl.contains(e.target) && !ham.contains(e.target)){
+    nl.classList.remove('open');
+    ham.classList.remove('open');
+    document.body.style.overflow='';
+  }
+});
 
 /* SCROLL REVEAL */
 document.body.classList.add('js-loaded');
