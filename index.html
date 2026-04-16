@@ -558,40 +558,38 @@
                 </div>
             </div>
         </section>
-        <section class="bg-surface py-24 px-12" id="projects">
-            <div class="max-w-6xl">
-                <div class="mb-16 reveal">
+        <section class="bg-surface py-24 px-6 md:px-12" id="projects">
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="mb-16 text-center reveal">
                     <span
                         class="text-xs font-mono uppercase tracking-widest text-primary-container mb-2 block">Project_Deployment.yml</span>
-                    <h2 class="font-headline text-4xl font-bold tracking-tight text-white">Production Artifacts</h2>
-                    <p class="text-on-surface-variant mt-4 max-w-2xl">A sequence of high-impact technical cards
-                        documenting specialized system architectures and production deployments.</p>
+                    <h2 class="font-headline text-4xl md:text-6xl font-bold tracking-tight">Production Artifacts</h2>
                 </div>
-                <div class="flex flex-col gap-12">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div
-                        class="group bg-surface-container-low rounded-2xl overflow-hidden border border-primary/10 hover:border-primary-container/50 transition-all duration-500 grid grid-cols-1 lg:grid-cols-12 reveal">
-                        <div class="lg:col-span-5 relative h-72 lg:h-auto overflow-hidden">
+                        class="md:col-span-3 group bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/20 hover:border-primary-container/50 transition-all duration-500 flex flex-col reveal">
+                        <div class="relative h-80 overflow-hidden">
                             <img alt="GrantMatch AI Visualization"
-                                class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700"
+                                class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuA89PiYwNeRgFI0Rtqfos7wZ3PZ6Sy9xWbdhmFkznozpBsKd_bNufetlVDjkVNRyEPDlWVgH0Re1Zifcru6Hbi2Hs48Yo0FzXNSQ6YdaPMbOVX3hubOpwE1DY-BsxrIXe-sye7oprp11KI7QaLw-IeV3FL_nwwxS_iCQ7dFg4Q7XTHoNWarIWRjipc9JoexiRO5iw75iZ0Nk-XLoBYWbv8G9UaGeWUALfSdIvwIiBLeiTRV-cm1AYySuQIgRMYkjyAIjsIlT7oti8g" />
                             <div
-                                class="absolute inset-0 bg-gradient-to-r from-surface-container-low via-transparent to-transparent hidden lg:block">
+                                class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent">
+                            </div>
+                            <div class="absolute top-4 left-4 flex gap-2">
+                                <span
+                                    class="text-[10px] px-2 py-1 bg-primary-container/80 text-on-primary-container rounded backdrop-blur-sm font-mono">React</span>
+                                <span
+                                    class="text-[10px] px-2 py-1 bg-surface-container-highest/80 text-on-surface-variant rounded backdrop-blur-sm font-mono">Next.js</span>
                             </div>
                         </div>
-                        <div class="lg:col-span-7 p-10 flex flex-col justify-center">
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span
-                                    class="text-[10px] px-2 py-1 bg-primary-container/20 text-primary-container border border-primary-container/30 rounded font-mono uppercase">Next.js</span>
-                                <span
-                                    class="text-[10px] px-2 py-1 bg-surface-container-highest/60 text-on-surface-variant rounded font-mono uppercase">TypeScript</span>
-                            </div>
+                        <div class="p-8">
                             <div class="flex justify-between items-start mb-4">
                                 <div>
-                                    <h3 class="text-3xl font-headline font-bold text-on-surface">GrantMatch.ai</h3>
+                                    <h3 class="text-2xl font-headline font-bold">GrantMatch.ai</h3>
                                     <p class="text-primary-container text-xs font-mono uppercase mt-1">Full Stack Grant
                                         Discovery SaaS</p>
                                 </div>
-                                <a class="magnetic-btn w-12 h-12 rounded-full bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container hover:bg-primary-container hover:text-on-primary-container transition-all shadow-[0_0_10px_rgba(14,165,233,0.3)]"
+                                <a class="magnetic-btn w-10 h-10 rounded-full bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container hover:bg-primary-container hover:text-on-primary-container transition-all"
                                     href="https://grantmatch.ai" target="_blank">
                                     <span class="material-symbols-outlined">north_east</span>
                                 </a>
@@ -602,60 +600,87 @@
                         </div>
                     </div>
                     <div
-                        class="group bg-surface-container-low rounded-2xl overflow-hidden border border-primary/10 hover:border-secondary-container/50 transition-all duration-500 grid grid-cols-1 lg:grid-cols-12 reveal">
-                        <div class="lg:col-span-5 relative h-72 lg:h-auto overflow-hidden">
+                        class="md:col-span-1 group bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/20 hover:border-tertiary/50 transition-all duration-500 flex flex-col reveal">
+                        <div class="relative h-80 overflow-hidden">
                             <img alt="Sipplytics Dashboard"
-                                class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700"
+                                class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuC73f7kj9t5SpFCSTXMekKN_lc4-fmlntLD91Lm7N-4vvzdGWI9p0I8ArcyaODictM3gtCjIZzTRenc_IM2-AYlP1UgaYubev8O6uHjmaD-MOTsw3aXkYOQmO28VHvnVkh5jM-ZLY21J_3cg_mj8-SUWeD0WzDXvX6j9MvQ-05nxPusmh2lzzKoV4UcB4chEqcn3kFpbcrldJqd1KEDT8VvqyfOkdxjSHVAog5FPYKnZzgPRf1O0KoXCxKgdKQ2v0peNuwiOTnCyf8" />
                             <div
-                                class="absolute inset-0 bg-gradient-to-r from-surface-container-low via-transparent to-transparent hidden lg:block">
+                                class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent">
+                            </div>
+                            <div class="absolute top-4 left-4">
+                                <span
+                                    class="text-[10px] px-2 py-1 bg-tertiary/80 text-on-tertiary rounded backdrop-blur-sm font-mono">Redis</span>
                             </div>
                         </div>
-                        <div class="lg:col-span-7 p-10 flex flex-col justify-center">
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span
-                                    class="text-[10px] px-2 py-1 bg-secondary-container/20 text-secondary-container border border-secondary-container/30 rounded font-mono uppercase">Redis</span>
-                                <span
-                                    class="text-[10px] px-2 py-1 bg-surface-container-highest/60 text-on-surface-variant rounded font-mono uppercase">WebSockets</span>
-                            </div>
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-3xl font-headline font-bold text-on-surface">Sipplytics</h3>
-                                    <p class="text-secondary-container text-xs font-mono uppercase mt-1">Real-time
-                                        Logistics Monitoring</p>
-                                </div>
-                                <a class="magnetic-btn w-12 h-12 rounded-full bg-secondary-container/10 border border-secondary-container/20 flex items-center justify-center text-secondary-container hover:bg-secondary-container hover:text-on-secondary-container transition-all shadow-[0_0_10px_rgba(34,211,238,0.3)]"
+                        <div class="p-8">
+                            <div class="flex flex-col gap-4 mb-4">
+                                <h3 class="text-xl font-headline font-bold">Sipplytics</h3>
+                                <a class="magnetic-btn w-8 h-8 rounded-full bg-tertiary/10 border border-tertiary/20 flex items-center justify-center text-tertiary hover:bg-tertiary hover:text-on-tertiary transition-all"
                                     href="https://sipplytics.com" target="_blank">
-                                    <span class="material-symbols-outlined">north_east</span>
+                                    <span class="material-symbols-outlined text-sm">north_east</span>
                                 </a>
                             </div>
-                            <p class="text-on-surface-variant text-sm leading-relaxed mb-6">Real-time logistical
-                                optimization platform. High-frequency WebSocket streams and distributed cache management
-                                for low-latency analytics.</p>
+                            <p class="text-on-surface-variant text-xs leading-relaxed">Real-time logistical optimization
+                                platform. High-frequency WebSocket streams.</p>
                         </div>
                     </div>
                     <div
-                        class="group bg-surface-container-low rounded-2xl overflow-hidden border border-primary/10 hover:border-on-surface/50 transition-all duration-500 grid grid-cols-1 lg:grid-cols-12 reveal">
-                        <div class="lg:col-span-5 relative h-72 lg:h-auto overflow-hidden bg-surface-container-high/40">
-                            <img alt="EMS Dashboard Visualization"
-                                class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJsSTJbDMICUlxrKn0ZTt-XLDc5-juZGPqbyXhnQNUB8sEScGXRH_FXuJgwOpx1-YnjLCYE3C9bp4QRPre9TQFW5xgZz_21pqzC_XLBgcdoJ3U4z3rSXEaIJ1GLAFm-ClwIAepqAgHTIUwrcpWEhGo8a0dEb2eB36SLjqK8n1ahBHkCQxzeYCUnR1ab7HB1MtxLNk9JpA7N51b6znlQpy-JbsG77swqhQA4f-AGYnjVWgc5OGMsw0jA_-m6iNHf5gs_1FxeQjPKzE" />
+                        class="md:col-span-1 group bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/20 hover:border-primary-container/50 transition-all duration-500 flex flex-col reveal">
+                        <div
+                            class="relative h-80 overflow-hidden bg-surface-container-high/40 flex items-center justify-center">
+                            <img alt="Tech Background"
+                                class="absolute inset-0 w-full h-full object-cover opacity-20 filter grayscale blur-[2px]"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuARGUCgwTw-jOa3wJJR1DShXp8M-2wHgRJ8JNukQWat1URzIX4_OSp5-y_PUsHynAJm5WPs2htsLZaI7-6MZ_RU131APQNprvI8IhvmXa124Eyc83atfcpT45J_xKZatiId6MHTPJtwEe977yN4LRK_uqEeBsVuOzyk7gXiWv0J7NlJFmekjGvtyhU3VK7gxng15P0YmtGM4wG6UHy1zR5qSeBHIB5_ElOFd767iVfGQmWjaXuOEQDa2xGS7NUGG3FKmoOZSBvuFOI" />
+                            <div class="text-center relative z-10">
+                                <span
+                                    class="material-symbols-outlined text-5xl text-primary-container mb-2">shopping_bag</span>
+                                <p class="font-mono text-[8px] text-primary/60">UK_ORDER_NODE_v2</p>
+                            </div>
                             <div
-                                class="absolute inset-0 bg-gradient-to-r from-surface-container-low via-transparent to-transparent hidden lg:block">
+                                class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent">
+                            </div>
+                            <div class="absolute top-4 left-4">
+                                <span
+                                    class="text-[10px] px-2 py-1 bg-primary-container/80 text-on-primary-container rounded backdrop-blur-sm font-mono">Node.js</span>
                             </div>
                         </div>
-                        <div class="lg:col-span-7 p-10 flex flex-col justify-center">
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span
-                                    class="text-[10px] px-2 py-1 bg-primary-container/20 text-on-surface border border-primary-container/30 rounded font-mono uppercase">PostgreSQL</span>
-                                <span
-                                    class="text-[10px] px-2 py-1 bg-surface-container-highest/60 text-on-surface-variant rounded font-mono uppercase">Auth2.0</span>
+                        <div class="p-8">
+                            <h3 class="text-xl font-headline font-bold mb-2">PizzaHut UK</h3>
+                            <p class="text-on-surface-variant text-xs leading-relaxed">Cart logic optimization and
+                                ensures 99.9% uptime for peak commercial hours.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="md:col-span-3 group bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/20 hover:border-tertiary/50 transition-all duration-500 flex flex-col reveal">
+                        <div class="relative h-80 overflow-hidden bg-surface-container-high/40">
+                            <img alt="EMS Dashboard Visualization"
+                                class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJsSTJbDMICUlxrKn0ZTt-XLDc5-juZGPqbyXhnQNUB8sEScGXRH_FXuJgwOpx1-YnjLCYE3C9bp4QRPre9TQFW5xgZz_21pqzC_XLBgcdoJ3U4z3rSXEaIJ1GLAFm-ClwIAepqAgHTIUwrcpWEhGo8a0dEb2eB36SLjqK8n1ahBHkCQxzeYCUnR1ab7HB1MtxLNk9JpA7N51b6znlQpy-JbsG77swqhQA4f-AGYnjVWgc5OGMsw0jA_-m6iNHf5gs_1FxeQjPKzE" />
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div
+                                    class="text-center p-6 bg-surface-container-lowest/80 backdrop-blur-md rounded-xl border border-outline-variant/30 shadow-2xl">
+                                    <span class="material-symbols-outlined text-4xl text-tertiary mb-2">badge</span>
+                                    <p class="font-mono text-[10px] text-outline tracking-widest uppercase">Enterprise
+                                        System Visualization</p>
+                                </div>
                             </div>
-                            <div class="mb-4">
-                                <h3 class="text-3xl font-headline font-bold text-on-surface">Employee Management System
-                                </h3>
-                                <p class="text-primary-container text-xs font-mono uppercase mt-1">EMS Core Architecture
-                                </p>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent">
+                            </div>
+                            <div class="absolute top-4 left-4 flex gap-2">
+                                <span
+                                    class="text-[10px] px-2 py-1 bg-tertiary text-on-tertiary rounded backdrop-blur-sm font-mono">PostgreSQL</span>
+                                <span
+                                    class="text-[10px] px-2 py-1 bg-surface-container-highest/80 text-on-surface-variant rounded backdrop-blur-sm font-mono">Auth2.0</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-2xl font-headline font-bold">Employee Management System</h3>
+                                    <p class="text-tertiary text-xs font-mono uppercase mt-1">EMS Core Architecture</p>
+                                </div>
                             </div>
                             <p class="text-on-surface-variant text-sm leading-relaxed mb-6">Comprehensive internal tool
                                 for attendance tracking, payroll processing, and performance auditing. Designed for high
