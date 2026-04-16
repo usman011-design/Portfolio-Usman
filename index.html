@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html class="dark" lang="en">
 
 <head>
@@ -6,10 +7,9 @@
     <title>Architect.io | Mohammad Usman</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
@@ -130,12 +130,77 @@
         .radial-glow {
             background: radial-gradient(circle at 50% 50%, var(--glow-color, rgba(0, 209, 255, 0.15)) 0%, transparent 70%);
         }
+
+        /* Mobile nav overlay */
+        #mobile-nav-overlay {
+            display: none;
+        }
+        #mobile-nav-overlay.open {
+            display: flex;
+        }
+        #sidebar.mobile-open {
+            transform: translateX(0) !important;
+        }
+
+        /* Responsive sidebar */
+        @media (max-width: 1023px) {
+            #sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+            }
+            #sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            main {
+                margin-left: 0 !important;
+            }
+        }
+
+        /* Mobile top bar */
+        #mobile-topbar {
+            display: none;
+        }
+        @media (max-width: 1023px) {
+            #mobile-topbar {
+                display: flex;
+            }
+        }
+
+        /* CTA pulse animation */
+        @keyframes ctaPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0,209,255,0.2); }
+            50% { box-shadow: 0 0 35px rgba(0,209,255,0.5), 0 0 60px rgba(0,209,255,0.15); }
+        }
+        .cta-pulse {
+            animation: ctaPulse 2.5s ease-in-out infinite;
+        }
     </style>
 </head>
 
 <body
-    class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container flex">
-    <aside
+    class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container flex flex-col lg:flex-row">
+
+    <!-- Mobile Top Bar -->
+    <div id="mobile-topbar"
+        class="fixed top-0 left-0 right-0 z-50 bg-surface border-b border-outline-variant/30 px-4 py-3 items-center justify-between lg:hidden">
+        <a class="flex items-center gap-2" href="/">
+            <img alt="Architect.io Logo" class="h-7 w-auto object-contain rounded-md"
+                src="https://lh3.googleusercontent.com/aida/ADBb0uj-CXCXVflKRvKDXX06q6O1USmdpPNDUDeFyrD1qaAusyOStp-ufl2mUBjjYLPPbUeqt98SgZzX8iH25RF7oiFnijpTJr6l5eedi4pwCUymmIaTWyiX-k6-NVAvEk6LgWhHwGc3hMGubMIES0Y0CjJWZo2lhmkV8Qux4F5fyBjUvMcrvNni-SGhT7Kvhn6v-7t01k7ldpIWk-PLGbTn6qC4dTWWlRrOk03BbZQ9GHgdwQgIKPC11JVGcSI" />
+            <span class="font-headline font-bold text-sm tracking-tight text-primary">Architect.io</span>
+        </a>
+        <button id="menu-toggle"
+            class="w-10 h-10 flex items-center justify-center rounded-lg border border-primary/20 bg-surface-container-high text-primary hover:bg-surface-container-highest transition-all"
+            aria-label="Toggle menu">
+            <span class="material-symbols-outlined text-2xl" id="menu-icon">menu</span>
+        </button>
+    </div>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobile-nav-overlay" class="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-sm"
+        onclick="closeMobileNav()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
         class="fixed left-0 top-0 h-screen w-64 bg-surface border-r border-outline-variant/30 z-50 flex flex-col p-6 overflow-y-auto">
         <div class="mb-12">
             <a class="flex items-center gap-2 group" href="/">
@@ -146,91 +211,101 @@
         </div>
         <nav class="flex flex-col gap-1 flex-1">
             <div class="text-[10px] uppercase tracking-widest text-primary/60 font-mono mb-4">Nav_Primary</div>
-            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all"
+            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all nav-link"
                 href="#about">
                 <span class="material-symbols-outlined text-xl">account_circle</span> About
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all"
+            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all nav-link"
                 href="#skills">
                 <span class="material-symbols-outlined text-xl">layers</span> Skills
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all"
+            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all nav-link"
                 href="#experience">
                 <span class="material-symbols-outlined text-xl">history</span> Experience
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all"
+            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all nav-link"
                 href="#approach">
                 <span class="material-symbols-outlined text-xl">architecture</span> Approach
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all"
+            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-['Space_Grotesk'] tracking-tight text-on-surface/60 hover:text-primary hover:bg-surface-container-high transition-all nav-link"
                 href="#projects">
                 <span class="material-symbols-outlined text-xl">source</span> Projects
             </a>
         </nav>
         <div class="mt-auto pt-6 border-t border-outline-variant/30">
             <a class="w-full flex items-center justify-center gap-2 bg-primary-container text-on-primary-container py-3 rounded-lg text-sm font-medium hover:brightness-110 transition-all shadow-[0_0_15px_rgba(14,165,233,0.3)]"
-                href="mailto:mohammadusmanmuzzamil@gmail.com?subject=Opportunity / Collaboration">
+                href="mailto:mohammadusmanmuzzamil@gmail.com?subject=Let's Connect">
                 <span class="material-symbols-outlined text-lg">connect_without_contact</span> Connect
             </a>
         </div>
     </aside>
-    <main class="flex-1 ml-64 min-w-0">
-        <section class="relative min-h-screen flex flex-col justify-center px-12 py-24 blueprint-grid overflow-hidden"
+
+    <!-- Main Content -->
+    <main class="flex-1 lg:ml-64 min-w-0 pt-14 lg:pt-0">
+
+        <!-- ABOUT -->
+        <section
+            class="relative min-h-screen flex flex-col justify-center px-5 sm:px-8 md:px-12 py-16 sm:py-20 lg:py-24 blueprint-grid overflow-hidden"
             id="about">
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] radial-glow opacity-30 pointer-events-none"
                 style="--glow-color: rgba(0, 209, 255, 0.25)"></div>
-            <div class="relative z-10 max-w-6xl">
+            <div class="relative z-10 max-w-6xl w-full mx-auto">
                 <div class="reveal">
                     <div
-                        class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-highest/40 border border-primary/20 rounded-full mb-8">
+                        class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-highest/40 border border-primary/20 rounded-full mb-6 sm:mb-8">
                         <span
                             class="w-2 h-2 rounded-full bg-secondary-container animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]"></span>
-                        <span class="text-[10px] uppercase tracking-widest font-mono text-secondary-container">System
+                        <span
+                            class="text-[9px] sm:text-[10px] uppercase tracking-widest font-mono text-secondary-container">System
                             Status: Active for Opportunities</span>
                     </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                        <div class="lg:col-span-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                        <div class="lg:col-span-8 order-2 lg:order-1">
                             <h1
-                                class="font-headline text-5xl lg:text-7xl font-bold tracking-tighter leading-[1.1] mb-6">
+                                class="font-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter leading-[1.1] mb-4 sm:mb-6">
                                 Designing <span
                                     class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-secondary-container">systems.</span><br />
                                 Building scalable experiences.
                             </h1>
-                            <div class="mb-10">
+                            <div class="mb-6 sm:mb-10">
                                 <span
-                                    class="text-4xl lg:text-6xl block mb-4 font-bold text-white tracking-tighter text-glow drop-shadow-[0_0_15px_rgba(0,209,255,0.4)]">Mohammad
+                                    class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl block mb-3 sm:mb-4 font-bold text-white tracking-tighter text-glow drop-shadow-[0_0_15px_rgba(0,209,255,0.4)]">Mohammad
                                     Usman</span>
-                                <p class="text-xl lg:text-2xl text-on-surface-variant max-w-2xl font-light">
+                                <p
+                                    class="text-base sm:text-lg lg:text-xl xl:text-2xl text-on-surface-variant max-w-2xl font-light">
                                     <span class="text-primary font-medium">Full Stack Developer</span> specialized in
                                     high-performance NestJS backends and pixel-perfect React frontends.
                                 </p>
                             </div>
-                            <div class="flex flex-wrap gap-4">
+                            <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                                 <button
-                                    class="magnetic-btn bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container px-8 py-4 rounded-lg font-bold flex items-center gap-2 hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(0,209,255,0.2)]"
-                                    onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">Production
-                                    Artifacts <span class="material-symbols-outlined"
-                                        style="font-variation-settings: 'wght' 600">arrow_forward</span></button>
-                                <a class="px-8 py-4 rounded-lg border border-primary/30 glass-panel bg-surface-container-highest/20 hover:bg-surface-container-highest/40 transition-all font-medium flex items-center gap-2 text-primary"
-                                    download="Mohammad_Usman_Resume"
-                                    href="mailto:mohammadusmanmuzzamil@gmail.com?subject=Resume Request">
-                                    Download Resume <span class="material-symbols-outlined text-sm">download</span>
+                                    class="magnetic-btn bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(0,209,255,0.2)] text-sm sm:text-base"
+                                    onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">
+                                    Production Artifacts <span class="material-symbols-outlined"
+                                        style="font-variation-settings: 'wght' 600">arrow_forward</span>
+                                </button>
+                                <!-- CTA: Call Button -->
+                                <a href="./Usman_CV_FullStack.pdf" download="Mohammad_Usman_Resume.pdf"
+                                    class="px-8 py-4 rounded-lg border border-primary/30 glass-panel bg-surface-container-highest/20 hover:bg-surface-container-highest/40 transition-all font-medium flex items-center gap-2 text-primary">
+                                    Download Resume
+                                    <span class="material-symbols-outlined text-sm">download</span>
                                 </a>
                             </div>
                         </div>
-                        <div class="lg:col-span-4 flex justify-start lg:justify-end">
+                        <div class="lg:col-span-4 flex justify-center lg:justify-end order-1 lg:order-2">
                             <div
-                                class="relative w-full aspect-square max-w-[320px] rounded-2xl p-0.5 bg-gradient-to-br from-primary-container/60 via-primary/40 to-secondary-container/60 glow-avatar overflow-hidden">
+                                class="relative w-full aspect-square max-w-[200px] sm:max-w-[260px] lg:max-w-[320px] rounded-2xl p-0.5 bg-gradient-to-br from-primary-container/60 via-primary/40 to-secondary-container/60 glow-avatar overflow-hidden">
                                 <div
                                     class="w-full h-full rounded-2xl overflow-hidden bg-surface-container-lowest border-2 border-primary/30 relative flex items-center justify-center">
                                     <div class="absolute inset-0 blueprint-grid opacity-40"></div>
-                                    <div class="relative z-10 w-full h-full p-8 flex items-center justify-center">
+                                    <div
+                                        class="relative z-10 w-full h-full p-6 sm:p-8 flex items-center justify-center">
                                         <img alt="Architect Visual"
                                             class="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,209,255,0.4)] scale-110"
                                             src="https://lh3.googleusercontent.com/aida/ADBb0uj-CXCXVflKRvKDXX06q6O1USmdpPNDUDeFyrD1qaAusyOStp-ufl2mUBjjYLPPbUeqt98SgZzX8iH25RF7oiFnijpTJr6l5eedi4pwCUymmIaTWyiX-k6-NVAvEk6LgWhHwGc3hMGubMIES0Y0CjJWZo2lhmkV8Qux4F5fyBjUvMcrvNni-SGhT7Kvhn6v-7t01k7ldpIWk-PLGbTn6qC4dTWWlRrOk03BbZQ9GHgdwQgIKPC11JVGcSI" />
                                     </div>
                                     <div
-                                        class="absolute bottom-4 left-4 font-mono text-[8px] text-primary/40 uppercase tracking-widest">
+                                        class="absolute bottom-3 left-3 font-mono text-[7px] text-primary/40 uppercase tracking-widest">
                                         Sys_Visualizer_Active</div>
                                 </div>
                             </div>
@@ -238,41 +313,41 @@
                     </div>
                 </div>
             </div>
-            <div class="absolute bottom-12 right-12 text-right border-r border-primary/30 pr-6 reveal">
-                <span
-                    class="block text-[10px] font-mono text-primary/60 uppercase tracking-tighter">Stack_Node_Status</span>
-            </div>
         </section>
+
+        <!-- SKILLS -->
         <section
-            class="relative bg-surface-container-low py-24 px-12 border-y border-outline-variant/30 overflow-hidden"
+            class="relative bg-surface-container-low py-16 sm:py-20 lg:py-24 px-5 sm:px-8 md:px-12 border-y border-outline-variant/30 overflow-hidden"
             id="skills">
             <div class="absolute inset-0 radial-glow opacity-20 pointer-events-none"
                 style="--glow-color: rgba(0, 209, 255, 0.15)"></div>
-            <div class="max-w-6xl relative">
-                <div class="flex flex-col mb-16 gap-4 reveal">
+            <div class="max-w-6xl relative mx-auto">
+                <div class="flex flex-col mb-10 sm:mb-16 gap-4 reveal">
                     <div>
                         <span
                             class="text-xs font-mono uppercase tracking-widest text-primary-container mb-2 block">System_Topology.sh</span>
-                        <h2 class="font-headline text-4xl font-bold tracking-tight text-white">The Technical Layers</h2>
+                        <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white">
+                            The Technical Layers</h2>
                     </div>
                     <p class="text-on-surface-variant max-w-xl text-sm leading-relaxed">
                         An architectural blueprint of my core competencies, mapped across the modern application stack
                         with a focus on enterprise scalability and type safety.
                     </p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                     <div
-                        class="tech-node p-8 bg-surface-container-high/40 backdrop-blur-sm rounded-xl border border-primary/20 hover:border-primary-container/60 transition-all group reveal">
-                        <div class="flex items-center justify-between mb-8">
+                        class="tech-node p-5 sm:p-8 bg-surface-container-high/40 backdrop-blur-sm rounded-xl border border-primary/20 hover:border-primary-container/60 transition-all group reveal">
+                        <div class="flex items-center justify-between mb-6 sm:mb-8">
                             <div
-                                class="w-12 h-12 bg-primary-container/10 rounded-lg flex items-center justify-center text-primary-container">
-                                <span class="material-symbols-outlined text-3xl">layers</span>
+                                class="w-10 h-10 sm:w-12 sm:h-12 bg-primary-container/10 rounded-lg flex items-center justify-center text-primary-container">
+                                <span class="material-symbols-outlined text-2xl sm:text-3xl">layers</span>
                             </div>
                             <span class="font-mono text-[10px] text-primary/60 tracking-tighter">01_FRONTEND</span>
                         </div>
-                        <h3 class="text-lg font-headline font-bold mb-6 uppercase tracking-wider text-primary">
+                        <h3
+                            class="text-base sm:text-lg font-headline font-bold mb-4 sm:mb-6 uppercase tracking-wider text-primary">
                             Presentation</h3>
-                        <div class="flex flex-wrap gap-2 mb-6">
+                        <div class="flex flex-wrap gap-2 mb-4 sm:mb-6">
                             <span
                                 class="text-[11px] px-2 py-1 bg-surface-container-highest border border-primary/20 rounded font-mono group-hover:text-primary transition-colors">React.js</span>
                             <span
@@ -286,18 +361,19 @@
                         <div class="w-full h-px bg-gradient-to-r from-primary/40 to-transparent"></div>
                     </div>
                     <div
-                        class="tech-node p-8 bg-surface-container-high/40 backdrop-blur-sm rounded-xl border border-primary/20 hover:border-secondary-container/60 transition-all group reveal">
-                        <div class="flex items-center justify-between mb-8">
+                        class="tech-node p-5 sm:p-8 bg-surface-container-high/40 backdrop-blur-sm rounded-xl border border-primary/20 hover:border-secondary-container/60 transition-all group reveal">
+                        <div class="flex items-center justify-between mb-6 sm:mb-8">
                             <div
-                                class="w-12 h-12 bg-secondary-container/10 rounded-lg flex items-center justify-center text-secondary-container">
-                                <span class="material-symbols-outlined text-3xl">settings_input_component</span>
+                                class="w-10 h-10 sm:w-12 sm:h-12 bg-secondary-container/10 rounded-lg flex items-center justify-center text-secondary-container">
+                                <span
+                                    class="material-symbols-outlined text-2xl sm:text-3xl">settings_input_component</span>
                             </div>
                             <span class="font-mono text-[10px] text-primary/60 tracking-tighter">02_BACKEND</span>
                         </div>
                         <h3
-                            class="text-lg font-headline font-bold mb-6 uppercase tracking-wider text-secondary-container">
+                            class="text-base sm:text-lg font-headline font-bold mb-4 sm:mb-6 uppercase tracking-wider text-secondary-container">
                             Core Logic</h3>
-                        <div class="flex flex-wrap gap-2 mb-6">
+                        <div class="flex flex-wrap gap-2 mb-4 sm:mb-6">
                             <span
                                 class="text-[11px] px-2 py-1 bg-surface-container-highest border border-primary/20 rounded font-mono group-hover:text-secondary-container transition-colors">Node.js</span>
                             <span
@@ -310,17 +386,18 @@
                         <div class="w-full h-px bg-gradient-to-r from-secondary-container/40 to-transparent"></div>
                     </div>
                     <div
-                        class="tech-node p-8 bg-surface-container-high/40 backdrop-blur-sm rounded-xl border border-primary/20 hover:border-tertiary/60 transition-all group reveal">
-                        <div class="flex items-center justify-between mb-8">
+                        class="tech-node p-5 sm:p-8 bg-surface-container-high/40 backdrop-blur-sm rounded-xl border border-primary/20 hover:border-tertiary/60 transition-all group reveal">
+                        <div class="flex items-center justify-between mb-6 sm:mb-8">
                             <div
-                                class="w-12 h-12 bg-tertiary/10 rounded-lg flex items-center justify-center text-tertiary">
-                                <span class="material-symbols-outlined text-3xl">database</span>
+                                class="w-10 h-10 sm:w-12 sm:h-12 bg-tertiary/10 rounded-lg flex items-center justify-center text-tertiary">
+                                <span class="material-symbols-outlined text-2xl sm:text-3xl">database</span>
                             </div>
                             <span class="font-mono text-[10px] text-primary/60 tracking-tighter">03_DATA</span>
                         </div>
-                        <h3 class="text-lg font-headline font-bold mb-6 uppercase tracking-wider text-tertiary">
+                        <h3
+                            class="text-base sm:text-lg font-headline font-bold mb-4 sm:mb-6 uppercase tracking-wider text-tertiary">
                             Persistence</h3>
-                        <div class="flex flex-wrap gap-2 mb-6">
+                        <div class="flex flex-wrap gap-2 mb-4 sm:mb-6">
                             <span
                                 class="text-[11px] px-2 py-1 bg-surface-container-highest border border-primary/20 rounded font-mono group-hover:text-tertiary transition-colors">PostgreSQL</span>
                             <span
@@ -333,17 +410,18 @@
                         <div class="w-full h-px bg-gradient-to-r from-tertiary/40 to-transparent"></div>
                     </div>
                     <div
-                        class="tech-node p-8 bg-surface-container-high/40 backdrop-blur-sm rounded-xl border border-primary/20 hover:border-white/40 transition-all group reveal">
-                        <div class="flex items-center justify-between mb-8">
+                        class="tech-node p-5 sm:p-8 bg-surface-container-high/40 backdrop-blur-sm rounded-xl border border-primary/20 hover:border-white/40 transition-all group reveal">
+                        <div class="flex items-center justify-between mb-6 sm:mb-8">
                             <div
-                                class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
-                                <span class="material-symbols-outlined text-3xl">cloud_done</span>
+                                class="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
+                                <span class="material-symbols-outlined text-2xl sm:text-3xl">cloud_done</span>
                             </div>
                             <span class="font-mono text-[10px] text-primary/60 tracking-tighter">04_OPS</span>
                         </div>
-                        <h3 class="text-lg font-headline font-bold mb-6 uppercase tracking-wider text-white">
+                        <h3
+                            class="text-base sm:text-lg font-headline font-bold mb-4 sm:mb-6 uppercase tracking-wider text-white">
                             Infrastructure</h3>
-                        <div class="flex flex-wrap gap-2 mb-6">
+                        <div class="flex flex-wrap gap-2 mb-4 sm:mb-6">
                             <span
                                 class="text-[11px] px-2 py-1 bg-surface-container-highest border border-primary/20 rounded font-mono group-hover:text-white transition-colors">Docker</span>
                             <span
@@ -358,169 +436,180 @@
                 </div>
             </div>
         </section>
-        <section class="py-24 px-12 max-w-6xl" id="experience">
-            <div class="mb-16 reveal">
-                <span
-                    class="text-xs font-mono uppercase tracking-widest text-secondary-container mb-2 block">Commit_History.git</span>
-                <h2 class="font-headline text-4xl font-bold tracking-tight mb-6 text-white">Professional Growth</h2>
-                <div class="p-6 bg-surface-container-low border-l-2 border-primary-container rounded-r-lg max-w-2xl">
-                    <span class="text-xs font-mono text-primary/60 mb-2 block">CURRENT_FOCUS</span>
-                    <p class="text-sm italic text-on-surface-variant">"Optimizing asynchronous microservices and
-                        enhancing frontend performance for multi-tenant SaaS environments."</p>
-                </div>
-            </div>
-            <div class="space-y-12 relative">
-                <div
-                    class="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-primary-container via-primary/20 to-transparent ml-[11px]">
-                </div>
-                <div class="relative pl-12 group reveal">
-                    <div
-                        class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-surface border-2 border-primary-container z-10 group-hover:scale-125 transition-transform shadow-[0_0_15px_rgba(14,165,233,0.6)]">
-                    </div>
-                    <div class="mb-4">
-                        <div class="flex flex-col gap-1 mb-2">
-                            <h3 class="text-2xl font-headline font-bold text-on-surface">Senior Software Developer <span
-                                    class="text-primary-container">@ Upclude</span></h3>
-                            <span
-                                class="w-fit px-3 py-1 bg-primary-container/10 border border-primary-container/20 rounded font-mono text-[10px] text-primary-container uppercase">JAN
-                                2025 – PRESENT</span>
-                        </div>
-                    </div>
-                    <ul class="space-y-4 text-on-surface-variant text-sm list-none max-w-3xl">
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Architecting
-                                full-stack features using Next.js, React, and RabbitMQ for distributed systems.</span>
-                        </li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Optimized
-                                Server-Side Rendering (SSR) strategies, reducing Time-to-Interactive (TTI) by
-                                40%.</span></li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Spearheaded
-                                cross-functional architectural reviews between frontend and DevOps teams to streamline
-                                deployments.</span></li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Developing
-                                scalable APIs with NestJS, integrated with PostgreSQL and Redis caching.</span></li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Write
-                                Jest, React Testing Library, and Supertest tests covering unit, integration, and E2E
-                                scenarios.</span></li>
 
-                    </ul>
-                </div>
-                <div class="relative pl-12 group reveal">
+        <!-- EXPERIENCE -->
+        <section class="py-16 sm:py-20 lg:py-24 px-5 sm:px-8 md:px-12" id="experience">
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-10 sm:mb-16 reveal">
+                    <span
+                        class="text-xs font-mono uppercase tracking-widest text-secondary-container mb-2 block">Commit_History.git</span>
+                    <h2
+                        class="font-headline text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-4 sm:mb-6 text-white">
+                        Professional Growth</h2>
                     <div
-                        class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-surface border-2 border-secondary-container z-10 group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(34,211,238,0.4)]">
+                        class="p-4 sm:p-6 bg-surface-container-low border-l-2 border-primary-container rounded-r-lg max-w-2xl">
+                        <span class="text-xs font-mono text-primary/60 mb-2 block">CURRENT_FOCUS</span>
+                        <p class="text-sm italic text-on-surface-variant">"Optimizing asynchronous microservices and
+                            enhancing frontend performance for multi-tenant SaaS environments."</p>
                     </div>
-                    <div class="mb-4">
-                        <div class="flex flex-col gap-1 mb-2">
-                            <h3 class="text-2xl font-headline font-bold text-on-surface">Software Engineer <span
-                                    class="text-secondary-container">@ SensViz</span></h3>
-                            <span
-                                class="w-fit px-3 py-1 bg-secondary-container/10 border border-secondary-container/20 rounded font-mono text-[10px] text-secondary-container uppercase">AUG
-                                2023 – DEC 2024</span>
-                        </div>
-                    </div>
-                    <ul class="space-y-4 text-on-surface-variant text-sm list-none max-w-3xl">
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-secondary-container text-lg mt-0.5">terminal</span><span>Engineered
-                                GrantMatch &amp; Sipplytics, leading to a 60% increase in user engagement.</span></li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-secondary-container text-lg mt-0.5">terminal</span><span>Automated
-                                CI/CD pipelines using GitHub Actions, cutting manual deployment time by 75%.</span></li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-secondary-container text-lg mt-0.5">terminal</span><span>Led
-                                technical documentation initiatives, creating standard operating procedures (SOPs) for
-                                the engineering department.</span></li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-secondary-container text-lg mt-0.5">terminal</span><span>Managed
-                                WebSocket pipelines, third-party API integrations, and Swagger documentation across both
-                                products.</span></li>
-
-                    </ul>
                 </div>
-                <div class="relative pl-12 group reveal">
+                <div class="space-y-10 sm:space-y-12 relative">
                     <div
-                        class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-surface border-2 border-outline-variant z-10 group-hover:scale-125 transition-transform">
+                        class="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-primary-container via-primary/20 to-transparent ml-[11px]">
                     </div>
-                    <div class="mb-4">
-                        <div class="flex flex-col gap-1 mb-2">
-                            <h3 class="text-2xl font-headline font-bold text-on-surface">Full Stack Developer <span
-                                    class="text-on-surface-variant">@ XnRel</span></h3>
-                            <span
-                                class="w-fit px-3 py-1 bg-surface-container-highest/40 border border-outline-variant/30 rounded font-mono text-[10px] text-outline uppercase">FEB
-                                2021 – JUL 2023</span>
+                    <div class="relative pl-10 sm:pl-12 group reveal">
+                        <div
+                            class="absolute left-0 top-1.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-surface border-2 border-primary-container z-10 group-hover:scale-125 transition-transform shadow-[0_0_15px_rgba(14,165,233,0.6)]">
                         </div>
+                        <div class="mb-4">
+                            <div class="flex flex-col gap-1 mb-2">
+                                <h3 class="text-lg sm:text-xl lg:text-2xl font-headline font-bold text-on-surface">
+                                    Senior Software Developer <span class="text-primary-container">@ Upclude</span></h3>
+                                <span
+                                    class="w-fit px-3 py-1 bg-primary-container/10 border border-primary-container/20 rounded font-mono text-[10px] text-primary-container uppercase">JAN
+                                    2025 – PRESENT</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 sm:space-y-4 text-on-surface-variant text-sm list-none max-w-3xl">
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Architecting
+                                    full-stack features using Next.js, React, and RabbitMQ for distributed
+                                    systems.</span></li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Optimized
+                                    Server-Side Rendering (SSR) strategies, reducing Time-to-Interactive (TTI) by
+                                    40%.</span></li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Spearheaded
+                                    cross-functional architectural reviews between frontend and DevOps teams to
+                                    streamline deployments.</span></li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Developing
+                                    scalable APIs with NestJS, integrated with PostgreSQL and Redis caching.</span></li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-primary-container text-lg mt-0.5">terminal</span><span>Write
+                                    Jest, React Testing Library, and Supertest tests covering unit, integration, and E2E
+                                    scenarios.</span></li>
+                        </ul>
                     </div>
-                    <ul class="space-y-4 text-on-surface-variant text-sm list-none max-w-3xl">
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-outline text-lg mt-0.5">terminal</span><span>Developed
-                                Student Information System (SIS) portals for multi-tenant educational platforms.</span>
-                        </li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-outline text-lg mt-0.5">terminal</span><span>Refactored
-                                legacy Monolith codebase into modular services, improving maintainability and feature
-                                velocity.</span></li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-outline text-lg mt-0.5">terminal</span><span>Optimized
-                                PostgreSQL query performance through strategic indexing and schema normalization.</span>
-                        </li>
-                        <li class="flex items-start gap-3"><span
-                                class="material-symbols-outlined text-outline text-lg mt-0.5">terminal</span><span>Implemented
-                                secure JWT auth reducing unauthorized access by 85%. Mentored junior developers on
-                                full-stack best practices.</span>
-                        </li>
-                    </ul>
+                    <div class="relative pl-10 sm:pl-12 group reveal">
+                        <div
+                            class="absolute left-0 top-1.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-surface border-2 border-secondary-container z-10 group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(34,211,238,0.4)]">
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex flex-col gap-1 mb-2">
+                                <h3 class="text-lg sm:text-xl lg:text-2xl font-headline font-bold text-on-surface">
+                                    Software Engineer <span class="text-secondary-container">@ SensViz</span></h3>
+                                <span
+                                    class="w-fit px-3 py-1 bg-secondary-container/10 border border-secondary-container/20 rounded font-mono text-[10px] text-secondary-container uppercase">AUG
+                                    2023 – DEC 2024</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 sm:space-y-4 text-on-surface-variant text-sm list-none max-w-3xl">
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-secondary-container text-lg mt-0.5">terminal</span><span>Engineered
+                                    GrantMatch &amp; Sipplytics, leading to a 60% increase in user engagement.</span>
+                            </li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-secondary-container text-lg mt-0.5">terminal</span><span>Automated
+                                    CI/CD pipelines using GitHub Actions, cutting manual deployment time by 75%.</span>
+                            </li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-secondary-container text-lg mt-0.5">terminal</span><span>Led
+                                    technical documentation initiatives, creating standard operating procedures (SOPs)
+                                    for the engineering department.</span></li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-secondary-container text-lg mt-0.5">terminal</span><span>Managed
+                                    WebSocket pipelines, third-party API integrations, and Swagger documentation across
+                                    both products.</span></li>
+                        </ul>
+                    </div>
+                    <div class="relative pl-10 sm:pl-12 group reveal">
+                        <div
+                            class="absolute left-0 top-1.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-surface border-2 border-outline-variant z-10 group-hover:scale-125 transition-transform">
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex flex-col gap-1 mb-2">
+                                <h3 class="text-lg sm:text-xl lg:text-2xl font-headline font-bold text-on-surface">Full
+                                    Stack Developer <span class="text-on-surface-variant">@ XnRel</span></h3>
+                                <span
+                                    class="w-fit px-3 py-1 bg-surface-container-highest/40 border border-outline-variant/30 rounded font-mono text-[10px] text-outline uppercase">FEB
+                                    2021 – JUL 2023</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 sm:space-y-4 text-on-surface-variant text-sm list-none max-w-3xl">
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-outline text-lg mt-0.5">terminal</span><span>Developed
+                                    Student Information System (SIS) portals for multi-tenant educational
+                                    platforms.</span></li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-outline text-lg mt-0.5">terminal</span><span>Refactored
+                                    legacy Monolith codebase into modular services, improving maintainability and
+                                    feature velocity.</span></li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-outline text-lg mt-0.5">terminal</span><span>Optimized
+                                    PostgreSQL query performance through strategic indexing and schema
+                                    normalization.</span></li>
+                            <li class="flex items-start gap-3"><span
+                                    class="material-symbols-outlined text-outline text-lg mt-0.5">terminal</span><span>Implemented
+                                    secure JWT auth reducing unauthorized access by 85%. Mentored junior developers on
+                                    full-stack best practices.</span></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
-        <section class="bg-surface-container-lowest py-24 px-12 border-y border-outline-variant/30" id="approach">
-            <div class="max-w-6xl">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+        <!-- APPROACH -->
+        <section
+            class="bg-surface-container-lowest py-16 sm:py-20 lg:py-24 px-5 sm:px-8 md:px-12 border-y border-outline-variant/30"
+            id="approach">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                     <div class="reveal">
                         <span
                             class="text-xs font-mono uppercase tracking-widest text-primary-container mb-2 block">Engineering_Methodology.sh</span>
-                        <h2 class="font-headline text-4xl font-bold tracking-tight mb-8 text-white">Case Study:
-                            Development Approach</h2>
-                        <div class="space-y-8">
-                            <div class="flex gap-6 group">
+                        <h2
+                            class="font-headline text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-6 sm:mb-8 text-white">
+                            Case Study: Development Approach</h2>
+                        <div class="space-y-6 sm:space-y-8">
+                            <div class="flex gap-4 sm:gap-6 group">
                                 <div class="flex flex-col items-center">
                                     <div
-                                        class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container font-mono text-sm border border-primary-container/30">
+                                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container font-mono text-sm border border-primary-container/30 shrink-0">
                                         01</div>
                                     <div class="w-px h-full bg-outline-variant/30 mt-2"></div>
                                 </div>
                                 <div>
-                                    <h4 class="font-headline font-bold text-xl mb-1 text-on-surface">Requirement
-                                        Analysis</h4>
+                                    <h4 class="font-headline font-bold text-lg sm:text-xl mb-1 text-on-surface">
+                                        Requirement Analysis</h4>
                                     <p class="text-on-surface-variant text-sm">Defining core constraints, user stories,
                                         and performance benchmarks.</p>
                                 </div>
                             </div>
-                            <div class="flex gap-6 group">
+                            <div class="flex gap-4 sm:gap-6 group">
                                 <div class="flex flex-col items-center">
                                     <div
-                                        class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container font-mono text-sm border border-primary-container/30">
+                                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container font-mono text-sm border border-primary-container/30 shrink-0">
                                         02</div>
                                     <div class="w-px h-full bg-outline-variant/30 mt-2"></div>
                                 </div>
                                 <div>
-                                    <h4 class="font-headline font-bold text-xl mb-1 text-on-surface">Planning &amp;
-                                        Architecture</h4>
+                                    <h4 class="font-headline font-bold text-lg sm:text-xl mb-1 text-on-surface">Planning
+                                        &amp; Architecture</h4>
                                     <p class="text-on-surface-variant text-sm">Schema design, service mapping
                                         (Next.js/NestJS), and API definitions.</p>
                                 </div>
                             </div>
-                            <div class="flex gap-6 group">
+                            <div class="flex gap-4 sm:gap-6 group">
                                 <div class="flex flex-col items-center">
                                     <div
-                                        class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container font-mono text-sm border border-primary-container/30">
+                                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container font-mono text-sm border border-primary-container/30 shrink-0">
                                         03</div>
                                 </div>
                                 <div>
-                                    <h4 class="font-headline font-bold text-xl mb-1 text-on-surface">Development &amp;
-                                        Optimization</h4>
+                                    <h4 class="font-headline font-bold text-lg sm:text-xl mb-1 text-on-surface">
+                                        Development &amp; Optimization</h4>
                                     <p class="text-on-surface-variant text-sm">Iterative implementation focusing on
                                         modularity, unit testing, and production profiling.</p>
                                 </div>
@@ -531,7 +620,7 @@
                         <div
                             class="bg-surface-container rounded-2xl border border-primary/30 overflow-hidden shadow-2xl shadow-primary/10">
                             <div
-                                class="bg-surface-container-high px-6 py-3 border-b border-primary/30 flex items-center justify-between">
+                                class="bg-surface-container-high px-4 sm:px-6 py-3 border-b border-primary/30 flex items-center justify-between">
                                 <div class="flex gap-2">
                                     <div class="w-3 h-3 rounded-full bg-cyan-900/50"></div>
                                     <div class="w-3 h-3 rounded-full bg-cyan-600/50"></div>
@@ -539,7 +628,7 @@
                                 </div>
                                 <span class="font-mono text-[10px] text-primary/60">architecture_pattern.ts</span>
                             </div>
-                            <pre class="p-6 text-sm font-mono text-primary/80 overflow-x-auto"><code><span class="text-secondary-container">@Injectable()</span>
+                            <pre class="p-4 sm:p-6 text-xs sm:text-sm font-mono text-primary/80 overflow-x-auto"><code><span class="text-secondary-container">@Injectable()</span>
 <span class="text-on-surface">export class</span> <span class="text-primary-container">SystemArchitect</span> {
   <span class="text-on-surface">constructor</span>(
     <span class="text-on-surface">private readonly</span> <span class="text-secondary-container">database</span>: PrismaService,
@@ -558,17 +647,21 @@
                 </div>
             </div>
         </section>
-        <section class="bg-surface py-24 px-6 md:px-12" id="projects">
+
+        <!-- PROJECTS -->
+        <section class="bg-surface py-16 sm:py-20 lg:py-24 px-4 sm:px-6 md:px-12" id="projects">
             <div class="max-w-screen-2xl mx-auto">
-                <div class="mb-16 text-center reveal">
+                <div class="mb-10 sm:mb-16 text-center reveal">
                     <span
                         class="text-xs font-mono uppercase tracking-widest text-primary-container mb-2 block">Project_Deployment.yml</span>
-                    <h2 class="font-headline text-4xl md:text-6xl font-bold tracking-tight">Production Artifacts</h2>
+                    <h2 class="font-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                        Production Artifacts</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
+                    <!-- GrantMatch - large -->
                     <div
                         class="md:col-span-3 group bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/20 hover:border-primary-container/50 transition-all duration-500 flex flex-col reveal">
-                        <div class="relative h-80 overflow-hidden">
+                        <div class="relative h-52 sm:h-64 md:h-80 overflow-hidden">
                             <img alt="GrantMatch AI Visualization"
                                 class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuA89PiYwNeRgFI0Rtqfos7wZ3PZ6Sy9xWbdhmFkznozpBsKd_bNufetlVDjkVNRyEPDlWVgH0Re1Zifcru6Hbi2Hs48Yo0FzXNSQ6YdaPMbOVX3hubOpwE1DY-BsxrIXe-sye7oprp11KI7QaLw-IeV3FL_nwwxS_iCQ7dFg4Q7XTHoNWarIWRjipc9JoexiRO5iw75iZ0Nk-XLoBYWbv8G9UaGeWUALfSdIvwIiBLeiTRV-cm1AYySuQIgRMYkjyAIjsIlT7oti8g" />
@@ -582,14 +675,14 @@
                                     class="text-[10px] px-2 py-1 bg-surface-container-highest/80 text-on-surface-variant rounded backdrop-blur-sm font-mono">Next.js</span>
                             </div>
                         </div>
-                        <div class="p-8">
+                        <div class="p-5 sm:p-8">
                             <div class="flex justify-between items-start mb-4">
                                 <div>
-                                    <h3 class="text-2xl font-headline font-bold">GrantMatch.ai</h3>
+                                    <h3 class="text-xl sm:text-2xl font-headline font-bold">GrantMatch.ai</h3>
                                     <p class="text-primary-container text-xs font-mono uppercase mt-1">Full Stack Grant
                                         Discovery SaaS</p>
                                 </div>
-                                <a class="magnetic-btn w-10 h-10 rounded-full bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container hover:bg-primary-container hover:text-on-primary-container transition-all"
+                                <a class="magnetic-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container hover:bg-primary-container hover:text-on-primary-container transition-all shrink-0"
                                     href="https://grantmatch.ai" target="_blank">
                                     <span class="material-symbols-outlined">north_east</span>
                                 </a>
@@ -599,9 +692,11 @@
                                 complex state management for institutional users.</p>
                         </div>
                     </div>
+
+                    <!-- Sipplytics - small -->
                     <div
                         class="md:col-span-1 group bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/20 hover:border-tertiary/50 transition-all duration-500 flex flex-col reveal">
-                        <div class="relative h-80 overflow-hidden">
+                        <div class="relative h-52 sm:h-64 md:h-80 overflow-hidden">
                             <img alt="Sipplytics Dashboard"
                                 class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuC73f7kj9t5SpFCSTXMekKN_lc4-fmlntLD91Lm7N-4vvzdGWI9p0I8ArcyaODictM3gtCjIZzTRenc_IM2-AYlP1UgaYubev8O6uHjmaD-MOTsw3aXkYOQmO28VHvnVkh5jM-ZLY21J_3cg_mj8-SUWeD0WzDXvX6j9MvQ-05nxPusmh2lzzKoV4UcB4chEqcn3kFpbcrldJqd1KEDT8VvqyfOkdxjSHVAog5FPYKnZzgPRf1O0KoXCxKgdKQ2v0peNuwiOTnCyf8" />
@@ -613,9 +708,9 @@
                                     class="text-[10px] px-2 py-1 bg-tertiary/80 text-on-tertiary rounded backdrop-blur-sm font-mono">Redis</span>
                             </div>
                         </div>
-                        <div class="p-8">
-                            <div class="flex flex-col gap-4 mb-4">
-                                <h3 class="text-xl font-headline font-bold">Sipplytics</h3>
+                        <div class="p-5 sm:p-8">
+                            <div class="flex flex-col gap-3 mb-4">
+                                <h3 class="text-lg sm:text-xl font-headline font-bold">Sipplytics</h3>
                                 <a class="magnetic-btn w-8 h-8 rounded-full bg-tertiary/10 border border-tertiary/20 flex items-center justify-center text-tertiary hover:bg-tertiary hover:text-on-tertiary transition-all"
                                     href="https://sipplytics.com" target="_blank">
                                     <span class="material-symbols-outlined text-sm">north_east</span>
@@ -625,16 +720,18 @@
                                 platform. High-frequency WebSocket streams.</p>
                         </div>
                     </div>
+
+                    <!-- Pizzahut UK - small -->
                     <div
                         class="md:col-span-1 group bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/20 hover:border-primary-container/50 transition-all duration-500 flex flex-col reveal">
                         <div
-                            class="relative h-80 overflow-hidden bg-surface-container-high/40 flex items-center justify-center">
+                            class="relative h-52 sm:h-64 md:h-80 overflow-hidden bg-surface-container-high/40 flex items-center justify-center">
                             <img alt="Tech Background"
                                 class="absolute inset-0 w-full h-full object-cover opacity-20 filter grayscale blur-[2px]"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuARGUCgwTw-jOa3wJJR1DShXp8M-2wHgRJ8JNukQWat1URzIX4_OSp5-y_PUsHynAJm5WPs2htsLZaI7-6MZ_RU131APQNprvI8IhvmXa124Eyc83atfcpT45J_xKZatiId6MHTPJtwEe977yN4LRK_uqEeBsVuOzyk7gXiWv0J7NlJFmekjGvtyhU3VK7gxng15P0YmtGM4wG6UHy1zR5qSeBHIB5_ElOFd767iVfGQmWjaXuOEQDa2xGS7NUGG3FKmoOZSBvuFOI" />
                             <div class="text-center relative z-10">
                                 <span
-                                    class="material-symbols-outlined text-5xl text-primary-container mb-2">shopping_bag</span>
+                                    class="material-symbols-outlined text-4xl sm:text-5xl text-primary-container mb-2">shopping_bag</span>
                                 <p class="font-mono text-[8px] text-primary/60">UK_ORDER_NODE_v2</p>
                             </div>
                             <div
@@ -645,24 +742,33 @@
                                     class="text-[10px] px-2 py-1 bg-primary-container/80 text-on-primary-container rounded backdrop-blur-sm font-mono">Node.js</span>
                             </div>
                         </div>
-                        <div class="p-8">
-                            <h3 class="text-xl font-headline font-bold mb-2">PizzaHut UK</h3>
+                        <div class="p-5 sm:p-8">
+                            <div class="flex flex-col gap-3 mb-4">
+                                <h3 class="text-lg sm:text-xl font-headline font-bold">Pizzahut UK</h3>
+                                <a class="magnetic-btn w-8 h-8 rounded-full bg-tertiary/10 border border-tertiary/20 flex items-center justify-center text-tertiary hover:bg-tertiary hover:text-on-tertiary transition-all"
+                                    href="https://pizzahut.co.uk" target="_blank">
+                                    <span class="material-symbols-outlined text-sm">north_east</span>
+                                </a>
+                            </div>
                             <p class="text-on-surface-variant text-xs leading-relaxed">Cart logic optimization and
                                 ensures 99.9% uptime for peak commercial hours.</p>
                         </div>
                     </div>
+
+                    <!-- Rashid Poultry Hub - large -->
                     <div
                         class="md:col-span-3 group bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/20 hover:border-tertiary/50 transition-all duration-500 flex flex-col reveal">
-                        <div class="relative h-80 overflow-hidden bg-surface-container-high/40">
-                            <img alt="EMS Dashboard Visualization"
+                        <div class="relative h-52 sm:h-64 md:h-80 overflow-hidden bg-surface-container-high/40">
+                            <img alt="Rashid Poultry Hub Visualization"
                                 class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJsSTJbDMICUlxrKn0ZTt-XLDc5-juZGPqbyXhnQNUB8sEScGXRH_FXuJgwOpx1-YnjLCYE3C9bp4QRPre9TQFW5xgZz_21pqzC_XLBgcdoJ3U4z3rSXEaIJ1GLAFm-ClwIAepqAgHTIUwrcpWEhGo8a0dEb2eB36SLjqK8n1ahBHkCQxzeYCUnR1ab7HB1MtxLNk9JpA7N51b6znlQpy-JbsG77swqhQA4f-AGYnjVWgc5OGMsw0jA_-m6iNHf5gs_1FxeQjPKzE" />
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <div
-                                    class="text-center p-6 bg-surface-container-lowest/80 backdrop-blur-md rounded-xl border border-outline-variant/30 shadow-2xl">
-                                    <span class="material-symbols-outlined text-4xl text-tertiary mb-2">badge</span>
-                                    <p class="font-mono text-[10px] text-outline tracking-widest uppercase">Enterprise
-                                        System Visualization</p>
+                                    class="text-center p-4 sm:p-6 bg-surface-container-lowest/80 backdrop-blur-md rounded-xl border border-outline-variant/30 shadow-2xl">
+                                    <span
+                                        class="material-symbols-outlined text-3xl sm:text-4xl text-tertiary mb-2">storefront</span>
+                                    <p class="font-mono text-[10px] text-outline tracking-widest uppercase">Poultry
+                                        E-Commerce Platform</p>
                                 </div>
                             </div>
                             <div
@@ -670,64 +776,115 @@
                             </div>
                             <div class="absolute top-4 left-4 flex gap-2">
                                 <span
-                                    class="text-[10px] px-2 py-1 bg-tertiary text-on-tertiary rounded backdrop-blur-sm font-mono">PostgreSQL</span>
+                                    class="text-[10px] px-2 py-1 bg-tertiary text-on-tertiary rounded backdrop-blur-sm font-mono">Next.js</span>
                                 <span
-                                    class="text-[10px] px-2 py-1 bg-surface-container-highest/80 text-on-surface-variant rounded backdrop-blur-sm font-mono">Auth2.0</span>
+                                    class="text-[10px] px-2 py-1 bg-surface-container-highest/80 text-on-surface-variant rounded backdrop-blur-sm font-mono">NestJS</span>
                             </div>
                         </div>
-                        <div class="p-8">
+                        <div class="p-5 sm:p-8">
                             <div class="flex justify-between items-start mb-4">
                                 <div>
-                                    <h3 class="text-2xl font-headline font-bold">Employee Management System</h3>
-                                    <p class="text-tertiary text-xs font-mono uppercase mt-1">EMS Core Architecture</p>
+                                    <h3 class="text-xl sm:text-2xl font-headline font-bold">Rashid Poultry Hub</h3>
+                                    <p class="text-tertiary text-xs font-mono uppercase mt-1">Poultry E-Commerce &
+                                        Management Platform</p>
                                 </div>
+                                <a class="magnetic-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-tertiary/10 border border-tertiary/20 flex items-center justify-center text-tertiary hover:bg-tertiary hover:text-on-tertiary transition-all shrink-0"
+                                    href="https://rashidpoultryhub.pk/" target="_blank">
+                                    <span class="material-symbols-outlined">north_east</span>
+                                </a>
                             </div>
-                            <p class="text-on-surface-variant text-sm leading-relaxed mb-6">Comprehensive internal tool
-                                for attendance tracking, payroll processing, and performance auditing. Designed for high
-                                security and detailed access control for thousands of concurrent users.</p>
+                            <p class="text-on-surface-variant text-sm leading-relaxed mb-6">Full-featured poultry
+                                e-commerce and business management platform. Built for high availability, real-time
+                                inventory tracking, and seamless order processing for commercial and retail poultry
+                                operations in Pakistan.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="py-24 px-12 max-w-6xl">
-            <div
-                class="relative bg-surface-container-high rounded-2xl p-16 border border-primary/20 overflow-hidden reveal">
-                <div class="absolute inset-0 blueprint-grid opacity-20"></div>
-                <div class="relative z-10">
-                    <h2 class="font-headline text-4xl font-bold tracking-tighter mb-8 text-white">Ready to architect
-                        your next system?</h2>
-                    <p class="text-xl text-on-surface-variant mb-12 max-w-2xl">Currently open to senior full-stack
-                        opportunities and strategic architectural consulting. Let's build something scalable.</p>
-                    <div class="flex flex-wrap gap-4">
-                        <a class="magnetic-btn bg-primary-container text-on-primary-container px-10 py-5 rounded-lg font-bold flex items-center justify-center gap-2 hover:brightness-110 transition-all shadow-xl shadow-primary-container/20"
-                            href="mailto:mohammadusmanmuzzamil@gmail.com?subject=Opportunity / Collaboration">
-                            Initialize Connection <span class="material-symbols-outlined"
-                                style="font-variation-settings: 'wght' 600">mail</span>
-                        </a>
-                        <a class="px-10 py-5 rounded-lg border border-primary/40 glass-panel bg-surface-container-highest/20 hover:bg-surface-container-highest/40 transition-all font-bold flex items-center justify-center gap-2 text-primary"
-                            download="Mohammad_Usman_Resume"
-                            href="mailto:mohammadusmanmuzzamil@gmail.com?subject=Resume Request">
-                            Download Resume <span class="material-symbols-outlined">download</span>
-                        </a>
+
+        <!-- CTA SECTION -->
+        <section class="py-16 sm:py-20 lg:py-24 px-5 sm:px-8 md:px-12">
+            <div class="max-w-6xl mx-auto">
+                <div
+                    class="relative bg-surface-container-high rounded-2xl p-8 sm:p-12 lg:p-16 border border-primary/20 overflow-hidden reveal">
+                    <div class="absolute inset-0 blueprint-grid opacity-20"></div>
+                    <div class="relative z-10">
+                        <h2
+                            class="font-headline text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tighter mb-4 sm:mb-8 text-white">
+                            Ready to architect your next system?</h2>
+                        <p class="text-base sm:text-xl text-on-surface-variant mb-8 sm:mb-12 max-w-2xl">Currently open
+                            to senior full-stack opportunities and strategic architectural consulting. Let's build
+                            something scalable.</p>
+                        <div class="flex flex-col sm:flex-row flex-wrap gap-4">
+                            <!-- Primary CTA: Email -->
+                            <a class="cta-pulse magnetic-btn bg-primary-container text-on-primary-container px-8 sm:px-10 py-4 sm:py-5 rounded-lg font-bold flex items-center justify-center gap-2 hover:brightness-110 transition-all shadow-xl shadow-primary-container/20 text-sm sm:text-base"
+                                href="mailto:mohammadusmanmuzzamil@gmail.com?subject=Opportunity / Collaboration">
+                                Initialize Connection <span class="material-symbols-outlined"
+                                    style="font-variation-settings: 'wght' 600">mail</span>
+                            </a>
+                            <!-- Secondary CTA: Call -->
+                            <a href="./Usman_CV_FullStack.pdf" download="Mohammad_Usman_Resume.pdf"
+                                class="px-8 py-4 rounded-lg border border-primary/30 glass-panel bg-surface-container-highest/20 hover:bg-surface-container-highest/40 transition-all font-medium flex items-center gap-2 text-primary">
+                                Download Resume
+                                <span class="material-symbols-outlined text-sm">download</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <footer class="bg-surface border-t border-outline-variant/30 py-12 px-12">
-            <div class="max-w-6xl flex flex-col md:flex-row justify-between items-center gap-8">
+
+        <!-- FOOTER -->
+        <footer class="bg-surface border-t border-outline-variant/30 py-8 sm:py-12 px-5 sm:px-8 md:px-12">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-8">
                 <div class="flex items-center gap-3">
                     <img alt="Architect.io Logo" class="h-8 w-auto rounded-md"
                         src="https://lh3.googleusercontent.com/aida/ADBb0uj-CXCXVflKRvKDXX06q6O1USmdpPNDUDeFyrD1qaAusyOStp-ufl2mUBjjYLPPbUeqt98SgZzX8iH25RF7oiFnijpTJr6l5eedi4pwCUymmIaTWyiX-k6-NVAvEk6LgWhHwGc3hMGubMIES0Y0CjJWZo2lhmkV8Qux4F5fyBjUvMcrvNni-SGhT7Kvhn6v-7t01k7ldpIWk-PLGbTn6qC4dTWWlRrOk03BbZQ9GHgdwQgIKPC11JVGcSI" />
                     <span
                         class="text-sm font-bold tracking-tighter text-primary font-['Space_Grotesk']">Architect.io</span>
                 </div>
-                <div class="text-[10px] font-mono text-primary/60 uppercase tracking-widest">© 2024 MOHAMMAD USMAN |
-                    ARCHITECT.IO</div>
+                <div class="text-[10px] font-mono text-primary/60 uppercase tracking-widest text-center">© 2024 MOHAMMAD
+                    USMAN | ARCHITECT.IO</div>
             </div>
         </footer>
     </main>
 
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('mobile-nav-overlay');
+
+        function openMobileNav() {
+            sidebar.classList.add('mobile-open');
+            overlay.classList.add('open');
+            menuIcon.textContent = 'close';
+        }
+
+        function closeMobileNav() {
+            sidebar.classList.remove('mobile-open');
+            overlay.classList.remove('open');
+            menuIcon.textContent = 'menu';
+        }
+
+        menuToggle.addEventListener('click', () => {
+            if (sidebar.classList.contains('mobile-open')) {
+                closeMobileNav();
+            } else {
+                openMobileNav();
+            }
+        });
+
+        // Close nav when a nav link is clicked on mobile
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    closeMobileNav();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
